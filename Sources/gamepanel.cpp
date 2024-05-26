@@ -9,9 +9,6 @@ GamePanel::GamePanel(QWidget *parent)
 {
     ui->setupUi(this);
 
-    ui->btnGroup->initButtons();
-    ui->btnGroup->selectPanel(ButtonGroup::Start);
-
     // 1. 背景图
     int num = QRandomGenerator::global()->bounded(10);
     QString path = QString(":/images/background-%1.png").arg(num + 1);
@@ -32,6 +29,7 @@ GamePanel::GamePanel(QWidget *parent)
     initCardMap();
 
     // 6. 初始化游戏中的按钮组
+    initButtonGroup();
 
     // 7. 初始化玩家在窗口中的上下文环境
 
@@ -103,6 +101,70 @@ void GamePanel::cropImage(QPixmap &pix, int x, int y, Card &c)
     panel->setImage(sub, m_cardBackImg);        // 设置前景图和背景图
     panel->hide();          // 暂时需要隐藏卡牌窗口
     m_cardMap.insert(c, panel);
+}
+
+void GamePanel::initButtonGroup()
+{
+    ui->btnGroup->initButtons();
+    ui->btnGroup->selectPanel(ButtonGroup::Start);
+
+    connect(ui->btnGroup, &ButtonGroup::startGame, this, [=](){});
+    connect(ui->btnGroup, &ButtonGroup::playHand, this, [=](){});
+    connect(ui->btnGroup, &ButtonGroup::pass, this, [=](){});
+    connect(ui->btnGroup, &ButtonGroup::betPoint, this, [=](){});
+}
+
+void GamePanel::initPlayerContext()
+{
+    // 1. 放置玩家扑克牌的位置
+    const QRect cardsRect[] = {
+        // x, y, width, height
+        QRect(90, 130, 100, height() - 200),                    // 左侧机器人
+        QRect(rect().right() - 190, 130, 100, height() - 200),  // 右侧机器人
+        QRect(250, rect().bottom() - 120, width() - 500, 100)   // 当前玩家
+    };
+
+    // 2. 玩家出牌的区域
+    const QRect playHandRect[] =
+    {
+        QRect(260, 150, 100, 100),                              // 左侧机器人
+        QRect(rect().right() - 360, 150, 100, 100),             // 右侧机器人
+        QRect(150, rect().bottom() - 290, width() - 300, 105)   // 当前玩家
+    };
+    // 3. 玩家头像显示的位置
+    const QPoint roleImgPos[] =
+    {
+        QPoint(cardsRect[0].left()-80, cardsRect[0].height() / 2 + 20),     // 左侧机器人
+        QPoint(cardsRect[1].right()+10, cardsRect[1].height() / 2 + 20),    // 右侧机器人
+        QPoint(cardsRect[2].right()-10, cardsRect[2].top() - 10)            // 当前玩家
+    };
+
+    // 循环保存玩家和玩家上下文信息
+    int index = m_playerList.indexOf(m_gameCtl->getUserPlayer());
+    for (int i = 0; i < m_playerList.size(); ++i) {
+        PlayerContext context;
+        context.align = i == index ? Horizontal : Vertical;
+        context.isFrontSide = i == index ? true : false;
+        context.cardRect = cardsRect[i];
+        context.playHandRect = playHandRect[i];
+        // 提示信息
+        context.info = new QLabel(this);
+        context.info->resize(160, 98);
+        context.info->hide();       // 暂时不需要显示
+        // 提示信息显示到出牌区域的中心位置
+        QRect rect = playHandRect[i];
+        QPoint pt(rect.left() + (rect.width() - context.info->width()) / 2,
+                  rect.top() + (rect.height() - context.info->height())/ 2);
+        context.info->move(pt);
+
+        // 玩家头像
+        context.roleImg = new QLabel(this);
+        context.roleImg->resize(84, 120);
+        context.roleImg->hide();
+        context.roleImg->move(roleImgPos[i]);
+        m_contextMap.insert(m_playerList.at(i), context);
+    }
+
 }
 
 void GamePanel::paintEvent(QPaintEvent *ev)
