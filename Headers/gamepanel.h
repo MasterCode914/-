@@ -15,7 +15,10 @@ public:
     GamePanel(QWidget *parent = nullptr);
     ~GamePanel();
 
+protected:
+    void paintEvent(QPaintEvent* ev);           // 重写父类函数绘制图像
 private:
     Ui::GamePanel *ui;
+    QPixmap m_bkImage;      // 背景图片
 };
 #endif // GAMEPANEL_H
