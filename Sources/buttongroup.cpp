@@ -13,7 +13,7 @@ ButtonGroup::~ButtonGroup()
     delete ui;
 }
 
-void ButtonGroup::initButtens()
+void ButtonGroup::initButtons()
 {
     // 开始游戏
     ui->start->setImage(":/images/start-1.png", ":/images/start-3.png", ":/images/start-2.png");
@@ -41,4 +41,32 @@ void ButtonGroup::initButtens()
     for (int i = 0; i < btns.size(); i++) {
         btns[i]->setFixedSize(90, 45);
     }
+
+    // 鼠标点击对应的按钮，发出对应的信号
+    connect(ui->start, &MyButton::clicked, this, &ButtonGroup::startGame);
+    connect(ui->playCard, &MyButton::clicked, this, &ButtonGroup::playHand);
+    connect(ui->playCard1, &MyButton::clicked, this,&ButtonGroup::playHand);
+    connect(ui->pass, &MyButton::clicked, this, &ButtonGroup::pass);
+    connect(ui->giveup, &MyButton::clicked, this, [=](){
+       emit betPoint(0);        // 发出betPoint信号并携带参数
+    });
+
+    connect(ui->oneScore, &MyButton::clicked, this, [=](){
+       emit betPoint(1);
+    });
+
+    connect(ui->twoScore, &MyButton::clicked, this, [=](){
+       emit betPoint(2);
+    });
+
+    connect(ui->threeScore, &MyButton::clicked, this, [=](){
+       emit betPoint(3);
+    });
+
+}
+
+void ButtonGroup::selectPanel(ButtonGroup::Panel panel, int bet)
+{
+    ui->stackedWidget->setCurrentIndex(panel);      // 显示某一个页面
+
 }
