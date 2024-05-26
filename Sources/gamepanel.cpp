@@ -6,6 +6,9 @@ GamePanel::GamePanel(QWidget *parent)
     , ui(new Ui::GamePanel)
 {
     ui->setupUi(this);
+
+    ui->btnGroup->initButtons();
+    ui->btnGroup->selectPanel(ButtonGroup::Start);
 }
 
 GamePanel::~GamePanel()
