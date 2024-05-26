@@ -15,6 +15,9 @@ public:
     explicit ButtonGroup(QWidget *parent = nullptr);
     ~ButtonGroup();
 
+    // 初始化各种按钮
+    void initButtens();
+
 private:
     Ui::ButtonGroup *ui;
 };
