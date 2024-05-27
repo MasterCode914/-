@@ -16,7 +16,7 @@ GamePanel::GamePanel(QWidget *parent)
 
     // 2. 窗口的标题大小
     this->setWindowTitle("欢乐斗地主");
-    this->setFixedSize(2000, 1300);      // 设置窗口大小
+    this->setFixedSize(1000, 650);      // 设置窗口大小
 
 
     // 3. 实例化控制游戏类的对象
@@ -32,7 +32,11 @@ GamePanel::GamePanel(QWidget *parent)
     initButtonGroup();
 
     // 7. 初始化玩家在窗口中的上下文环境
+    initPlayerContext();
 
+    // 8. 扑克牌初始化场景
+    // 发牌时的显示，最后三张底牌的显示
+    initGameScene();
 }
 
 GamePanel::~GamePanel()
@@ -163,6 +167,39 @@ void GamePanel::initPlayerContext()
         context.roleImg->hide();
         context.roleImg->move(roleImgPos[i]);
         m_contextMap.insert(m_playerList.at(i), context);
+    }
+
+}
+
+void GamePanel::initGameScene()
+{
+    // 1. 发牌区的显示
+    m_baseCard = new CardPanel(this);
+    m_baseCard->setImage(m_cardBackImg, m_cardBackImg);
+
+    // 2. 发牌过程中的移动扑克牌
+    m_moveCard = new CardPanel(this);
+    m_moveCard->setImage(m_cardBackImg, m_cardBackImg);
+
+    // 3. 最后三张底牌用于窗口的显示
+    for (int i = 0; i < 3; i++) {
+        CardPanel* panel = new CardPanel(this);
+        panel->setImage(m_cardBackImg, m_cardBackImg);
+        m_last3Card.push_back(panel);
+        // 宪隐藏窗口，最后再显示
+        panel->hide();
+    }
+
+    // 扑克牌的位置
+    m_baseCardPos = QPoint((width() - m_cardSize.width()) / 2,
+                           height() / 2 - 100);
+    m_baseCard->move(m_baseCardPos);
+    m_moveCard->move(m_baseCardPos);
+
+    // 底牌位置
+    int base = (width() - 3 * m_cardSize.width() - 2 * 10) / 2;
+    for (int i = 0; i < 3; i++) {
+        m_last3Card[i]->move(base + (m_cardSize.width() + 10) * i, 20);
     }
 
 }

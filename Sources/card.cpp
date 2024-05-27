@@ -58,3 +58,8 @@ uint qHash(const Card &card)
 {
     return card.point() * 10 + card.suit();
 }
+
+bool operator <(const Card &c1, const Card &c2)
+{
+    return lessSort(c1, c2);
+}
