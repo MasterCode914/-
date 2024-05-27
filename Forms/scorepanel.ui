@@ -27,42 +27,6 @@
    <string notr="true"/>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
-    <widget class="QLabel" name="meScore">
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-       <underline>false</underline>
-      </font>
-     </property>
-     <property name="text">
-      <string>我</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1">
-    <widget class="QLabel" name="label_2">
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-       <underline>false</underline>
-      </font>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="2">
     <widget class="QLabel" name="label_3">
      <property name="font">
@@ -81,7 +45,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0">
+   <item row="1" column="1">
     <widget class="QLabel" name="leftScore">
      <property name="font">
       <font>
@@ -92,15 +56,51 @@
       </font>
      </property>
      <property name="text">
-      <string>左侧机器人</string>
+      <string/>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
-   <item row="1" column="1">
-    <widget class="QLabel" name="label_5">
+   <item row="2" column="1">
+    <widget class="QLabel" name="rightScore">
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+       <underline>false</underline>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="2">
+    <widget class="QLabel" name="label_7">
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+       <underline>false</underline>
+      </font>
+     </property>
+     <property name="text">
+      <string>分</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLabel" name="meScore">
      <property name="font">
       <font>
        <pointsize>12</pointsize>
@@ -136,7 +136,7 @@
     </widget>
    </item>
    <item row="2" column="0">
-    <widget class="QLabel" name="rightScore">
+    <widget class="QLabel" name="rightRobot">
      <property name="font">
       <font>
        <pointsize>12</pointsize>
@@ -153,8 +153,8 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="1">
-    <widget class="QLabel" name="label_9">
+   <item row="1" column="0">
+    <widget class="QLabel" name="leftRobot">
      <property name="font">
       <font>
        <pointsize>12</pointsize>
@@ -164,15 +164,15 @@
       </font>
      </property>
      <property name="text">
-      <string/>
+      <string>左侧机器人</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
-   <item row="2" column="2">
-    <widget class="QLabel" name="label_7">
+   <item row="0" column="0">
+    <widget class="QLabel" name="me">
      <property name="font">
       <font>
        <pointsize>12</pointsize>
@@ -182,7 +182,7 @@
       </font>
      </property>
      <property name="text">
-      <string>分</string>
+      <string>我</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
