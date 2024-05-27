@@ -57,6 +57,8 @@ private:
 using CardList = QVector<Card>;
 bool lessSort(const Card& c1, const Card& c2);
 bool greaterSort(const Card& c1, const Card& c2);
+// 在map中使用Card作为key需要重载自定义类型的比较操作符
+bool operator <(const Card& c1, const Card& c2);
 
 // QSet里面使用自定义的类型就需要重载==
 // 操作符重载（==）
