@@ -41,6 +41,12 @@ public:
     // 初始化游戏场景：发牌，底牌
     void initGameScene();
 
+    // 处理游戏状态   发牌，叫地主，出牌
+    void gameStatusPrecess(GameControl::GameStatus status);
+    // 开始发牌
+    void startDispatchCard();
+
+
 
 protected:
     void paintEvent(QPaintEvent* ev);           // 重写父类函数绘制图像
@@ -81,6 +87,7 @@ private:
     CardPanel* m_moveCard;      // 移动发牌
     QVector<CardPanel*> m_last3Card;
     QPoint m_baseCardPos;       // 发牌的位置
+    GameControl::GameStatus m_gameStatus;       // 游戏状态
 
 };
 #endif // GAMEPANEL_H
